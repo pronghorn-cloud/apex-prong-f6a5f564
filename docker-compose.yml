@@ -5,10 +5,9 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.backend
+
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
     environment:
       DATABASE_URL: postgresql://user:password@db:5432/power_policy_db
     depends_on:
@@ -17,11 +16,8 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
+      - "80:80"
     depends_on:
       - backend
 
