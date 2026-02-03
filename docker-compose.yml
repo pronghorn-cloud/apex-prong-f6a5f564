@@ -13,13 +13,7 @@ services:
     depends_on:
       - db
 
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+
 
   db:
     image: postgres:14-alpine
