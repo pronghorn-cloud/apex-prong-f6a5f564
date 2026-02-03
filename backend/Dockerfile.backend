@@ -1,11 +1,34 @@
 # Dockerfile for the Python backend
 FROM python:3.9-slim-buster
 
+# Install Node.js and npm for frontend build
+RUN apt-get update && apt-get install -y nodejs npm && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
+# Copy and install backend dependencies
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Copy backend source code
 COPY ./src /app/src
 
+# Build frontend
+# Set frontend workdir, copy package files, install deps, copy source, then build
+WORKDIR /app/frontend
+COPY ./frontend/package.json ./frontend/package-lock.json* ./
+RUN npm install
+COPY ./frontend ./
+RUN npm run build
+
+# Set workdir back to /app for backend execution
+WORKDIR /app
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+RUN mv ./frontend/dist ./frontend/dist
+
+# Set workdir back to /app for backend execution
+WORKDIR /app
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
 CMD ["python", "./src/main.py"]
