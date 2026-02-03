@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: Power Policy API
+  version: 1.0.0
+description: API for the Power Policy compliance management system.
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+
+tags:
+  - name: Health
+    description: API health checks
+
+paths:
+  /:
+    get:
+      summary: Health Check
+      tags: [Health]
+      responses:
+        '200':
+          description: API is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Power Policy Backend is running!

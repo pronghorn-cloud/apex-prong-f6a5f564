@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+
+# Node.js
+node_modules/
+build/
+dist/
+
+# Docker
+.dockerignore
+
+# Database
+*.sqlite3
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+thumbs.db
